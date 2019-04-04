@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	"gobot.io/x/gobot"
@@ -15,6 +16,7 @@ func main() {
 	work := func() {
 		go gobot.Every(1*time.Second, func() {
 			led.Toggle()
+			fmt.Println("switch")
 		})
 	}
 
