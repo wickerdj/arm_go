@@ -13,7 +13,7 @@ func main() {
 	led := gpio.NewLedDriver(r, "12")
 
 	work := func() {
-		gobot.Every(1*time.Second, func() {
+		go gobot.Every(1*time.Second, func() {
 			led.Toggle()
 		})
 	}
