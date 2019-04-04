@@ -9,20 +9,26 @@ import (
 	"gobot.io/x/gobot/platforms/raspi"
 )
 
+func blink(r *raspi.Adaptor, pin string) {
+	led := gpio.NewLedDriver(r, pin)
+
+	go gobot.Every(1*time.Second, func() {
+		led.Toggle()
+		fmt.Println("switch")
+	})
+
+}
+
 func main() {
 	r := raspi.NewAdaptor()
-	led := gpio.NewLedDriver(r, "12")
 
 	work := func() {
-		go gobot.Every(1*time.Second, func() {
-			led.Toggle()
-			fmt.Println("switch")
-		})
+		go blink(r, "12")
 	}
 
 	robot := gobot.NewRobot("blinkBot",
 		[]gobot.Connection{r},
-		[]gobot.Device{led},
+		[]gobot.Device{},
 		work,
 	)
 
