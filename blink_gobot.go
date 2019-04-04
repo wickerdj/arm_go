@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	"gobot.io/x/gobot"
@@ -9,12 +8,23 @@ import (
 	"gobot.io/x/gobot/platforms/raspi"
 )
 
+func threeFast(r *raspi.Adaptor, pin string) {
+	led := gpio.NewLedDriver(r, pin)
+
+	for i := 0; i < 3; i++ {
+		led.On()
+		time.Sleep(500 * time.Millisecond)
+		led.Off()
+		time.Sleep(200 * time.Millisecond)
+	}
+
+}
+
 func blink(r *raspi.Adaptor, pin string) {
 	led := gpio.NewLedDriver(r, pin)
 
-	go gobot.Every(1*time.Second, func() {
+	gobot.Every(1*time.Second, func() {
 		led.Toggle()
-		fmt.Println("switch")
 	})
 
 }
@@ -23,6 +33,7 @@ func main() {
 	r := raspi.NewAdaptor()
 
 	work := func() {
+		go threeFast(r, "12")
 		go blink(r, "12")
 	}
 
