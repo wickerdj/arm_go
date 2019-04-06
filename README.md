@@ -4,7 +4,11 @@ This is a set of experiments writing go programs to run on a raspberry pi
 
 ## build command
 
+For Raspberry Pi A, A+, B, B+, Zero 
 GOARM=6 GOARCH=arm GOOS=linux go build {filename.go}
+
+Raspberry Pi 2, 3
+GOARM=7 GOARCH=arm GOOS=linux go build {filename.go}
 
 ## GO Packages for working with the Raspberry Pi GPIO
 
