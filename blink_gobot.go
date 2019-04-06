@@ -33,8 +33,8 @@ func main() {
 	r := raspi.NewAdaptor()
 
 	work := func() {
-		go threeFast(r, "12")
-		go blink(r, "12")
+		go threeFast(r, "32")
+		go blink(r, "32")
 	}
 
 	robot := gobot.NewRobot("blinkBot",
