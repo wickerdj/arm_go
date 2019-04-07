@@ -11,11 +11,11 @@ import (
 func threeFast(led *gpio.LedDriver) {
 	for i := 0; i < 3; i++ {
 		led.On()
-		time.Sleep(500 * time.Millisecond)
+		time.Sleep(200 * time.Millisecond)
 		led.Off()
 		time.Sleep(200 * time.Millisecond)
 	}
-
+	time.Sleep(500 * time.Millisecond)
 }
 
 func blink(led *gpio.LedDriver) {
@@ -24,16 +24,11 @@ func blink(led *gpio.LedDriver) {
 	})
 }
 
-func off(led *gpio.LedDriver) {
-	led.Off()
-}
-
 func main() {
 	r := raspi.NewAdaptor()
 	led := gpio.NewLedDriver(r, "12")
 
 	work := func() {
-		off(led)
 		threeFast(led)
 		blink(led)
 	}
