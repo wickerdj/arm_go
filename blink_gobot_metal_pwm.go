@@ -8,20 +8,20 @@ import (
 	"gobot.io/x/gobot/platforms/raspi"
 )
 
+func off(l *gpio.LedDriver) {
+	l.Brightness(0)
+}
+
 func main() {
 	r := raspi.NewAdaptor()
-	led := gpio.NewLedDriver(r, "32")
+	led := gpio.NewLedDriver(r, "12")
 
 	led.Start()
-	led.Off()
+	off(led)
 
 	for i := 0; i < 3; i++ {
-		// led.Toggle()
-		// fmt.Println("Led State:", led.State())
-
 		if i%2 == 0 {
-			// led.On()
-			for x := 0; x <= 255; x++ {
+			for x := 0; x <= 255; x += 10 {
 				time.Sleep(50 * time.Millisecond)
 
 				setVal := byte(x)
@@ -30,11 +30,13 @@ func main() {
 				fmt.Printf("loop: %v | setVal: %v | bright: %v | \n", i, setVal, bright)
 			}
 		} else {
-			led.Off()
+
+			off(led)
 		}
 
 		time.Sleep(time.Second)
 
 	}
-	led.Off()
+
+	off(led)
 }
