@@ -8,14 +8,14 @@ import (
 	"gobot.io/x/gobot/platforms/raspi"
 )
 
-func threeFast(led *gpio.LedDriver) {
+func threeFast(led *gpio.LedDriver, delay time.Duration) {
 	for i := 0; i < 3; i++ {
 		led.On()
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(delay)
 		led.Off()
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(delay)
 	}
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(2 * delay)
 }
 
 func blink(led *gpio.LedDriver) {
@@ -29,7 +29,8 @@ func main() {
 	led := gpio.NewLedDriver(r, "12")
 
 	work := func() {
-		threeFast(led)
+		delay, _ := time.ParseDuration("200ms")
+		threeFast(led, delay)
 		blink(led)
 	}
 
