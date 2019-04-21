@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+
 	host.Init()
 
 	pin := gpioreg.ByName("GPIO4")
